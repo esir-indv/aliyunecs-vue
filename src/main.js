@@ -6,7 +6,6 @@ import './mock'
 // import './element-ui'
 import ElementUI from 'element-ui';
 import './styles/gloable.css'
-
 import 'element-ui/lib/theme-chalk/index.css';
 //导入图标组件
 import "font-awesome/css/font-awesome.min.css"
