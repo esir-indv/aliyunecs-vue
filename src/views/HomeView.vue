@@ -3,12 +3,14 @@
         <el-container style="height: 100%;">
             <!--侧边栏导航-->
             <el-aside width="200px" style="background-color: rgb(238, 241, 246);height: 100%">
-                <el-menu :default-openeds="['1', '3']" style="height: 100%">
+                <el-menu :default-openeds="['1', '3']" style="height: 100%"
+                         text-color="#fff"
+                         active-text-color="#ffd04b">
                     <el-submenu index="1">
-                        <template slot="title"><i class="fa fa-cog fa-spin fa-5xx"></i>&nbsp;导航一</template>
+                        <template slot="title" ><i class="el-icon-s-custom"></i>&nbsp;导航一</template>
                     </el-submenu>
                     <el-submenu index="2">
-                        <template slot="title"><i class="fa fa-cog fa-refresh"></i>导航二</template>
+                        <template slot="title"><i class="el-icon-loading"></i>导航二</template>
                     </el-submenu>
                 </el-menu>
             </el-aside>
@@ -45,6 +47,7 @@
 
 <script >
 export default {
+    name: "HomeView",
     data() {
         const item = {
             date: '2016-05-02',
@@ -67,5 +70,12 @@ export default {
 }
 .el-aside {
     color: #333;
+}
+.el-menu{
+    background-color: rgb(48,65,86);
+    color:#fff;
+    text-decoration-color: white;
+    overflow: hidden;
+
 }
 </style>

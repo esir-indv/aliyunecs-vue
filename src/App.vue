@@ -5,16 +5,3 @@
     </div>
 </template>
 
-<script>
-// import axios from "axios";
-// import Home from "@/components/Home.vue";
-export default {
-    name: 'App',
-}
-</script>
-
-<style lang="less" scoped>
-#app{
-    height: 100%;
-}
-</style>
