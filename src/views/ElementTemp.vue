@@ -1,5 +1,30 @@
 <template>
     <div>
+        <el-menu router style="border: none "  :default-active="$route.path">
+            <!--一级菜单
+            index：组件访问路径-->
+            <el-menu-item index="/home">
+                <template slot="title">
+                    <i class="el-icon-house"></i>
+                    <span>系统首页</span>
+                </template>
+            </el-menu-item>
+            <el-menu-item index="/elementtemp">ElementTemp页面</el-menu-item>
+            <!--二级菜单-->
+            <el-submenu>
+                <template slot="title">
+                    <i class="el-icon-menu"></i>
+                    <span>信息管理</span>
+                </template>
+                <el-menu-item>
+                    <span>用户信息</span>
+                </el-menu-item>
+            </el-submenu>
+            <!--一级菜单-->
+        </el-menu>
+        <hr>
+        <hr>
+        <hr>
         <el-button type="primary" plain> 主要的按钮</el-button>
         <el-button type="danger" plain> 主要的按钮</el-button>
         <el-button type="primary" plain round> 主要的按钮圆角</el-button>
