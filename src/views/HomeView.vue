@@ -7,17 +7,19 @@
 
                 <!--logo区域-->
                 <div style="height: 60px;  color: white; display: flex; align-items: center; justify-content: center">
-                    <img src="@/assets/logo白色.png" alt="" style="width: 196px;height: 40px">
+                    <img class="logo" v-show="!isCollapse" src="@/assets/logo白色.png" alt="">
+                    <img class="logo-2" v-show="isCollapse" src="@/assets/logo方（白）.png" alt="">
                 </div>
                 <!--菜单区域
                 :default-active="$route.path":动态绑定当前浏览器访问路由路径高亮
                 -->
-                <el-menu :collapse="isCollapse" :collapse-transition="false" router background-color="#001529" text-color="rgba(255,255,255,0.65)" active-text-color="#fff"
+                <el-menu :collapse="isCollapse" :collapse-transition="false" router background-color="#001529"
+                         text-color="rgba(255,255,255,0.65)" active-text-color="#fff"
                          style="border: none " :default-active="$route.path">
                     <!--一级菜单-->
-                    <el-menu-item index="/home">
-                            <i class="el-icon-house"></i>
-                            <span slot="title">系统首页</span>
+                    <el-menu-item index="/0">
+                        <i class="el-icon-house"></i>
+                        <span slot="title">系统首页</span>
                     </el-menu-item>
 
                     <!--二级菜单-->
@@ -39,7 +41,27 @@
             <el-container>
                 <!--右侧头部区域-->
                 <el-header>
-                    <i class="el-icon-menu" style="width:40px; margin-top: 10px" @click="handleCollapse"></i>
+                    <i :class="collapseIcon" style="font-size: 20px" @click="handleCollapse"></i>
+                    <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-left: 20px">
+                        <el-breadcrumb-item :to="{path: '/' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{path: 'user'}">用户管理</el-breadcrumb-item>
+                    </el-breadcrumb>
+                    <!--头像区域下拉菜单:布局-居中-靠右==-->
+                    <div style="flex: 1; width: 0; display: flex; align-items: center; justify-content: flex-end">
+                        <i class="fa fa-arrows-alt" style="font-size: 15px" @click="handFull"></i>
+                        <el-dropdown placement="bottom">
+                            <div style="display: flex; align-items: center; cursor: default">
+                            <img src="@/assets/logo.png" alt="" style="width: 40px; height: 40px; margin:0 5px">
+                            <span>管理员</span>
+                            </div>
+                            <el-dropdown-menu>
+                                <el-dropdown-item>个人信息</el-dropdown-item>
+                                <el-dropdown-item>修改密码</el-dropdown-item>
+                                <el-dropdown-item>推出登录</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+
+                    </div>
 
                 </el-header>
                 <!--右侧主体区域-->
@@ -56,17 +78,25 @@
 <script>
 export default {
     name: "HomeView",
-    data(){
-        return{
+    data() {
+        return {
             //默认不收缩
             isCollapse: false,
             asideWidth: '200px',
+            collapseIcon: 'el-icon-s-fold'
         }
     },
-    methods:{
-        handleCollapse(){
+    //全屏展示功能
+    methods: {
+        handFull(){
+            document.documentElement.requestFullscreen()
+
+        },
+
+        handleCollapse() {
             this.isCollapse = !this.isCollapse
-            this.asideWidth = this.isCollapse?'64px':'200px'
+            this.asideWidth = this.isCollapse ? '64px' : '200px'
+            this.collapseIcon = !this.isCollapse ? 'el-icon-s-fold' : 'el-icon-s-unfold'
         }
 
     }
@@ -116,25 +146,53 @@ export default {
     height: 40px;
     line-height: 40px;
 }
+
 //下箭头居中对齐
-.el-submenu__icon-arrow{
+.el-submenu__icon-arrow {
     margin-top: -3px;
 }
+
 //调整收缩后高亮图标居中,这里的点又要有空格
-.el-menu-item.is-active .el-tooltip{
+.el-menu-item.is-active .el-tooltip {
     margin-left: -4px !important;
 }
+
 //设置二级菜单高亮后，高亮框宽度调整
-.el-submenu .el-menu-item{
-min-width: 0 !important;
+.el-submenu .el-menu-item {
+    min-width: 0 !important;
 }
+
 //设置二级菜单高亮后，字体对齐
-.el-menu--inline .el-menu-item.is-active{
+.el-menu--inline .el-menu-item.is-active {
     padding-left: 50px !important;
 }
-//左侧  菜单收缩动画
+
+//左侧  菜单收缩动画 阴影
 .el-aside {
     transition: width .4s;
+    box-shadow: 2px 0 2px rgba(0, 21, 41, 35);
+}
+
+.logo {
+    width: 190px;
+    height: 40px;
+    transition: all .4s;
+
+}
+
+.logo-2 {
+    width: 35px;
+    height: 35px;
+    transition: all .4s;
+
+}
+
+//头部菜单阴影，居中
+.el-header {
+    box-shadow: 2px 0 2px rgba(0, 21, 41, 35);
+    height: 60px;
+    display: flex;
+    align-items: center;
 }
 
 

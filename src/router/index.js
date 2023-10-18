@@ -17,11 +17,7 @@ const routes = [
     name: 'Home',
     component: ()=>import('../views/HomeView.vue')
   },
-  {
-    path: '/elementtemp',
-    name: 'ElementTemp',
-    component: () => import('../views/ElementTemp.vue')
-  }
+
   ]
 
 const router = new VueRouter({
