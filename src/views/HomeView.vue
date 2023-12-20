@@ -17,7 +17,7 @@
                          text-color="rgba(255,255,255,0.65)" active-text-color="#fff"
                          style="border: none " :default-active="$route.path">
                     <!--一级菜单-->
-                    <el-menu-item index="/0">
+                    <el-menu-item index="/login">
                         <i class="el-icon-house"></i>
                         <span slot="title">系统首页</span>
                     </el-menu-item>
@@ -50,14 +50,16 @@
                     <div style="flex: 1; width: 0; display: flex; align-items: center; justify-content: flex-end">
                         <i class="fa fa-arrows-alt" style="font-size: 15px" @click="handFull"></i>
                         <el-dropdown placement="bottom">
+                            <!--增加一个div盒子，解决img和span排版问题，flex属性很好用-->
                             <div style="display: flex; align-items: center; cursor: default">
-                            <img src="@/assets/logo.png" alt="" style="width: 40px; height: 40px; margin:0 5px">
-                            <span>管理员</span>
+                                <img src="@/assets/IMG_1665.png" alt=""
+                                     style="width: 40px; height: 40px; margin:0 5px ;border-radius: 50%">
+                                <span>管理员</span>
                             </div>
                             <el-dropdown-menu>
                                 <el-dropdown-item>个人信息</el-dropdown-item>
                                 <el-dropdown-item>修改密码</el-dropdown-item>
-                                <el-dropdown-item>推出登录</el-dropdown-item>
+                                <el-dropdown-item @click="$router.push('/login')">退出登录</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
 
@@ -66,7 +68,34 @@
                 </el-header>
                 <!--右侧主体区域-->
                 <el-main>
-                    右侧主体区域
+                    <div style="box-shadow: 0 0 10px rgba(0,0,0, .1); padding: 10px 20px; border-radius: 5px; margin-bottom: 10px"  >
+                        昨夜星辰昨夜风，画楼西畔桂堂东
+                    </div>
+                    <div style="display: flex">
+                        <el-card style="width: 50%; margin-right: 10px">
+                            <div slot="header" class="clearfix">
+                                <span>三台农商</span>
+                            </div>
+                        </el-card>
+
+                        <el-card style="width: 50%;">
+                            <div slot="header" class="clearfix">
+                                <span>用户数据</span>
+                            </div>
+                            <div style="height:200px; overflow: auto">
+                                <el-table :data="users">
+                                    <el-table-column label="ID" prop="id"></el-table-column>
+                                    <el-table-column label="姓名" prop="username"></el-table-column>
+                                    <el-table-column label="柜员号" prop="txOrgNo"></el-table-column>
+                                    <el-table-column label="手机号" prop="phone"></el-table-column>
+                                    <el-table-column label="职位" prop="job"></el-table-column>
+                                    <el-table-column label="创建时间" prop="createTime"></el-table-column>
+                                    <el-table-column label="更新时间" prop="update"></el-table-column>
+                                </el-table>
+                            </div>
+
+                        </el-card>
+                    </div>
                 </el-main>
             </el-container>
 
@@ -76,6 +105,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import request from "@/utils/request";
 export default {
     name: "HomeView",
     data() {
@@ -83,34 +114,34 @@ export default {
             //默认不收缩
             isCollapse: false,
             asideWidth: '200px',
-            collapseIcon: 'el-icon-s-fold'
+            collapseIcon: 'el-icon-s-fold',
+            users:[],
         }
     },
-    //全屏展示功能
-    methods: {
-        handFull(){
-            document.documentElement.requestFullscreen()
-
+    //页面加载后，进行请求数据
+    mounted() {
+        request.get('/user/selectAll').then(res=>{
+            this.users = res.data
+        })
         },
-
+    methods: {
+        //全屏展示功能
+        handFull() {
+            document.documentElement.requestFullscreen()
+        },
         handleCollapse() {
             this.isCollapse = !this.isCollapse
             this.asideWidth = this.isCollapse ? '64px' : '200px'
             this.collapseIcon = !this.isCollapse ? 'el-icon-s-fold' : 'el-icon-s-unfold'
         }
-
     }
-
-};
-
+}
 </script>
-
 <style lang="less">
 //整个inline框
 .el-menu--inline {
     background-color: #000c17 !important;
 }
-
 //二级子菜单中的样式，需要到chorm浏览器中调试找到 !important如果和其它地方样式有冲突，强制生效
 .el-menu--inline .el-menu-item {
     background-color: #000c17 !important;

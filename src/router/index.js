@@ -9,7 +9,7 @@ const routes = [
 //重定向路由
   {
     path:'/',
-    redirect:'home',
+    redirect:'login',
   },
 
   {
@@ -17,6 +17,16 @@ const routes = [
     name: 'Home',
     component: ()=>import('../views/HomeView.vue')
   },
+  {
+    path:'/login',
+    name: '/Login',
+    component:()=>import('../views/Login.vue')
+  },
+  {
+    path: '/register',
+    name: '/Register',
+    component:()=>import('../views/Register.vue')
+  }
 
   ]
 

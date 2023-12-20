@@ -13,16 +13,11 @@ import "font-awesome/css/font-awesome.min.css"
 //导入axios库
 import axios from 'axios'
 // 配置请求根路径
-axios.defaults.baseURL = "http://localhost:8087"
-
-
+axios.defaults.baseURL = "http://localhost:9090"
 //挂载baseURL $http可自定义 新增Vue属性
 Vue.prototype.$http = axios
 Vue.use(ElementUI,{size:'small'})
-
-
 Vue.config.productionTip = false
-
 new Vue({
   render: h => h(App),
   router:router
